@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include "interface.h"
-//
+
 int Face(){
     char a[10];
     int b;

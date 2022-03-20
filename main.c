@@ -6,7 +6,7 @@
 
 int main()
 {
-    int a;
+    int a,b;
     a=Face();
     while (a){
         switch (a) {
@@ -17,9 +17,14 @@ int main()
                 a=Face();
                 break;
             case 2:
-                login(createList());
+                b= login(createList());
+                if(b==0){
                 a=Face();
-                break;
+                break;}
+                else if(b==1){
+                    printf("1");
+                    return 0;
+                }
 
 
             case 3:
