@@ -6,7 +6,6 @@
 
 int main()
 {
-
     int a;
     a=Face();
     while (a){
