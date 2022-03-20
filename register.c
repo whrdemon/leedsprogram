@@ -4,7 +4,6 @@
 #include "register.h"
 
 
-
 pNode createList()
 {
     pNode Head = (pNode)malloc(sizeof(LNode));
@@ -55,19 +54,19 @@ int login(pNode head)
     {
         if(0==strcmp(temp->name,name) && 0==strcmp(temp->pass,pass))
         {
-            printf("success");
+            printf("success\n");
             getchar();
             return 1;
         }
         if(0==strcmp(temp->name,name) && 0!=strcmp(temp->pass,pass))
         {
-            printf("password is wrong!");
+            printf("password is wrong!\n");
             getchar();
             return 0;
         }
         temp = temp->next;
     }
-    printf("user not found");
+    printf("user not found\n");
     return 0;
 }
 
@@ -94,16 +93,20 @@ void registerUser(pNode head)
     printf("enter your name:");
     scanf("%s",name);
     pNode abc = head->next;
+
     while(abc)
     {
+        abc = (pNode)malloc(sizeof(LNode));
         if(0==strcmp(abc->name,name))
         {
             printf("This username has already been registered.");
+            getchar();
             return;
 
         }
         abc = abc->next;
     }
+    printf("1");
     strcpy(temp->name,name);
     printf("enter your password:");
     scanf("%s",temp->pass);
@@ -115,7 +118,7 @@ void registerUser(pNode head)
     fprintf(fw,"\n");
     temp  = temp->next;
     fclose(fw);
-    printf("Registered successfully");
+    printf("Registered successfully\n");
 }
 
 

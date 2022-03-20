@@ -9,4 +9,6 @@ add_executable(cwk1
         book_mangement.h
         main.c
         register.c
-        register.h)
+        register.h
+        interface.c
+        interface.h)

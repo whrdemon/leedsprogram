@@ -6,51 +6,35 @@
 
 int main()
 {
-    char a[10];
-    int b;
-    printf("Enter your choice:\n");
-    printf("1.Register an account\n");
-    printf("2.Login\n");
-    printf("3.Search for books\n");
-    printf("4.Display all books\n");
-    printf("5.Quit\n");
-    scanf("%s",&a);
-    b=strlen(a);
 
-    while(b>=2||(a[0]!='1'&&a[0]!='2'&&a[0]!='3'&&a[0]!='4'&&a[0]!='5')){
+    int a;
+    a=Face();
+    while (a){
+        switch (a) {
 
-        printf("Sorry the option is invalid,please try again.");
-        printf("Enter your choice:\n");
-        printf("1.Register an account\n");
-        printf("2.Login\n");
-        printf("3.Search for books\n");
-        printf("4.Display all books\n");
-        printf("5.Quit\n");
-        scanf("%s",&a);
-        b=strlen(a);}
+            case 1:
 
-    if(a[0]=='1'){
-
-        registerUser( createList());
+                registerUser( createList());
+                a=Face();
+                break;
+            case 2:
+                login(createList());
+                a=Face();
+                break;
 
 
-    }
-    else if(a[0]=='2'){
-        login(createList());
+            case 3:
+                printf("y");
 
-    }
-    else if(a[0]=='3'){
-        printf("y");
 
-    }
-    else if(a[0]=='4'){
-        printf("y");
+            case 4:
+                printf("y");
 
-    }
-    else if(a[0]=='5'){
-        printf("y");
 
-    }
+            case 5:
+                return 0;
+
+
 
     return 0;
-}
+}}}
