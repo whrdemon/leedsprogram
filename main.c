@@ -3,7 +3,7 @@
 
 #include"register.h"
 #include "interface.h"
-//das rerere
+
 int main()
 {
     char a[10];
