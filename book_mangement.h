@@ -24,7 +24,7 @@ typedef struct _BookList {
 	 unsigned int length; // number of elements in the (Book*) List 
 }BookList;
 
-
+Book *create();
 //saves the database of books in the specified file
 //returns 0 if books were stored correctly, or an error code otherwise
 int store_books(FILE *file);
@@ -36,7 +36,7 @@ int load_books(FILE *file);
 
 //adds a book to the ones available to the library
 //returns 0 if the book could be added, or an error code otherwise
-int add_book(Book book);
+int add_book(FILE *file,Book *head);
 
 //removes a book from the library
 //returns 0 if the book could be successfully removed, or an error code otherwise.
