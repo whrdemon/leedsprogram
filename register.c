@@ -54,19 +54,20 @@ int login(pNode head)
     {
         if(0==strcmp(temp->name,name) && 0==strcmp(temp->pass,pass))
         {
-            printf("success\n");
-            getchar();
+            if(0==strcmp("librarian",name)){
+                return 2;
+            }
             return 1;
         }
         if(0==strcmp(temp->name,name) && 0!=strcmp(temp->pass,pass))
         {
-            printf("password is wrong!\n");
+            printf("Password is wrong! Please re-enter!\n");
             getchar();
             return 0;
         }
         temp = temp->next;
     }
-    printf("user not found\n");
+    printf("User not found,please re-enter!\n");
     return 0;
 }
 
@@ -75,28 +76,12 @@ void registerUser(pNode head)
 {
     char name[100];
     pNode temp = head->next;
-    if(!temp)
-    {
-        temp = (pNode)malloc(sizeof(LNode));
-        head->next = temp;
-    }
-    else
-    {
-        while(temp->next)
-        {
-            temp = temp->next;
-        }
-        pNode last = (pNode)malloc(sizeof(LNode));
-        temp->next = last;
-        temp = last;
-    }
     printf("enter your name:");
     scanf("%s",name);
     pNode abc = head->next;
 
     while(abc)
     {
-        abc = (pNode)malloc(sizeof(LNode));
         if(0==strcmp(abc->name,name))
         {
             printf("This username has already been registered.");
@@ -106,7 +91,7 @@ void registerUser(pNode head)
         }
         abc = abc->next;
     }
-    printf("1");
+
     strcpy(temp->name,name);
     printf("enter your password:");
     scanf("%s",temp->pass);

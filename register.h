@@ -10,6 +10,7 @@ typedef struct LNode
     char pass[100];
     struct LNode *next;
 } LNode,*pNode;
+
 pNode createList();
 int login(pNode head);
 void registerUser(pNode head);
