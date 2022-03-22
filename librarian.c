@@ -60,7 +60,7 @@ Book *create(){
         exit(-1);
     }
 
-    struct _Book* c = head;
+    Book *c = head;
     while(1)
     {
         Book* temp = (Book*)malloc(sizeof(Book));
@@ -68,7 +68,7 @@ Book *create(){
             exit(-1);
 
 
-        if(5!=fscanf(fp,"%i%s%s%i%i",temp->id,temp->title,temp->authors,temp->year,temp->copies))
+        if(fscanf(fp,"%i%s%s%i%i",&temp->id,&temp->title,&temp->authors,&temp->year,&temp->copies)!=EOF)
         {
             free(temp);
             break;
@@ -82,10 +82,41 @@ Book *create(){
 }
 
 int add_book(FILE *file,Book *head){
-    Book* temp = head->next;
+    Book *temp = head->next;
+    temp=(Book*)malloc(sizeof(Book));
     char *booktitle,*bookauthor;
-    int year,copies;
+    int id,year,copies;
+    printf("Enter the id:");
+    scanf("%d",&id);
     printf("Enter the title:");
+    scanf("%s",booktitle);
+    printf("Enter the author:");
+    scanf("%s",bookauthor);
+    printf("Enter the year:");
+    scanf("%d",&year);
+    printf("Enter the copies:");
+    scanf("%d",&copies);
+    Book *a=head->next;
+    a=(Book*)malloc(sizeof(Book));
+    printf("%s",a->title);
+    temp->id=id;
+    temp->title=booktitle;
+    temp->authors=bookauthor;
+    temp->year=year;
+    temp->copies=copies;
+    fprintf(file,"%i",temp->id);
+    fprintf(file,"\t");
+    fprintf(file,"%s",temp->title);
+    fprintf(file,"\t");
+    fprintf(file,"%s",temp->authors);
+    fprintf(file,"\t");
+    fprintf(file,"%i",temp->year);
+    fprintf(file,"\t");
+    fprintf(file,"%i",temp->copies);
+    fprintf(file,"\n");
+    temp=temp->next;
+    fclose(file);
+    return 0;
 
 }
 
