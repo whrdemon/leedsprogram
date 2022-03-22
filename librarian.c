@@ -67,7 +67,6 @@ Book *create(){
         if(!temp)
             exit(-1);
 
-
         if(fscanf(fp,"%i%s%s%i%i",&temp->id,&temp->title,&temp->authors,&temp->year,&temp->copies)!=EOF)
         {
             free(temp);

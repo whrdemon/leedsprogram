@@ -22,7 +22,6 @@ int main()
                 while (b == 0) {
                     b = login(createList());
                 }
-
                 if (b == 1) {
                     printf("1");
                     return 0;
