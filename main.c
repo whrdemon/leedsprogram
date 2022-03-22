@@ -33,7 +33,6 @@ int main()
                     if (c==1){
                     FILE *fp = fopen("booklist.txt","a");
                     add_book(fp,create());}
-
                 }
 
 
