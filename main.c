@@ -29,10 +29,27 @@ int main()
                 if (b == 2) {
                     printf("Welcome,librarian!\n");
                     c = Lib();
-                    if (c==1){
-                    FILE *fp = fopen("booklist.txt","a");
-                    add_book(fp,create());}
-                }
+                    while (c){
+                        switch (c) {
+                            case 1:{
+                                FILE *fp = fopen("booklist.txt","a");
+                                if(add_book(fp,create())==0){
+                                    printf("Add successful!");
+                                    c=Lib();
+                                    if(c!=1){
+                                        if(store_books(fp,create())==0){
+                                            load_books(fp);
+                                        }
+
+                                    }
+                                    break;}}
+                                case 2:{
+                                    return 0;
+                            }
+
+
+                    }
+                }}
 
 
             case 3:
