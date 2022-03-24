@@ -55,6 +55,7 @@ int main()
                                 case 2:{
                                     FILE *fp=fopen("booklist.txt","r");
                                     load_books(fp,head);
+
                                     remove_book(head);
                                     return 0;
                             }
