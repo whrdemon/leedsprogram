@@ -1,15 +1,19 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 #include"register.h"
 #include "interface.h"
 #include "librarian.h"
 #include "book_mangement.h"
+#include "user.h"
 int main()
 {
-    int a,b,c;
-    a=Face();
-    while (a){
+    int a,b,c,d;
+
+    Book *head = (Book*)malloc(sizeof(Book));
+    head->next=NULL;
+    while (1){
+        a=Face();
         switch (a) {
 
             case 1:
@@ -23,8 +27,13 @@ int main()
                     b = login(createList());
                 }
                 if (b == 1) {
-                    printf("1");
-                    return 0;
+
+                    printf("Welcome the library!\n");
+                    d=Userface();
+                    if(d==1){
+                        printf("Borrow book");
+                    }
+
                 }
                 if (b == 2) {
                     printf("Welcome,librarian!\n");
@@ -32,21 +41,35 @@ int main()
                     while (c){
                         switch (c) {
                             case 1:{
-                                FILE *fp = fopen("booklist.txt","a");
-                                if(add_book(fp,create())==0){
+                                FILE *fp=fopen("booklist.txt","r");
+                                load_books(fp,head);
+                                if(add_book(fp,head)==0){
                                     printf("Add successful!");
+                                    fclose(fp);
+                                    FILE *fm= fopen("booklist.txt","w");
+                                    store_books(fm,head);
+                                    fclose(fm);
                                     c=Lib();
-                                    if(c!=1){
-                                        if(store_books(fp,create())==0){
-                                            load_books(fp);
-                                        }
-
-                                    }
-                                    break;}}
+                                    break;
+                                }}
                                 case 2:{
+                                    FILE *fp=fopen("booklist.txt","r");
+                                    load_books(fp,head);
+                                    remove_book(head);
                                     return 0;
                             }
+                            case 4:{
+                                FILE *fp=fopen("booklist.txt","r");
+                                load_books(fp,head);
+                                fclose(fp);
+                                display(head);
+                                c=Lib();
 
+                                break;
+                            }
+                            case 5:{
+                                return 0;
+                            }
 
                     }
                 }}

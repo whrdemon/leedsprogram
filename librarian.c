@@ -3,6 +3,13 @@
 #include <stdlib.h>
 #include "librarian.h"
 #include "book_mangement.h"
+char *strddd(const char *s){
+    size_t size = strlen(s) + 1;
+    char *p = (char *)malloc(size*sizeof(char));
+    if (p) {
+        memcpy(p, s, size);
+    }
+    return p;}
 int Lib(){
     char a[10];
     int b;
@@ -50,41 +57,13 @@ int Lib(){
     }
 
 };
-Book *create(int a){
-    Book *head = (Book*)malloc(sizeof(Book));
-    head->next=NULL;
-    FILE *fp = fopen("booklist.txt","r+");
-    if(NULL == fp)
-    {
-        printf("FILE NOT FOUND");
-        exit(-1);
-    }
 
-    Book *c = head;
-    while(1)
-    {
-        Book* temp = (Book*)malloc(sizeof(Book));
-        if(!temp)
-            exit(-1);
-
-
-        if(fscanf(fp,"%i%s%s%i%i",&temp->id,&temp->title,&temp->authors,&temp->year,&temp->copies)!=5)
-        {
-            free(temp);
-            break;
-        }
-        c->next=temp;
-        c = temp;
-        c->next = NULL;
-    }
-    return head;
-
-}
 
 int add_book(FILE *file,Book *head){
-
-    Book *temp=head->next;
-    temp=(Book*)malloc(sizeof(Book));
+    Book *temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
 
     char booktitle[100],bookauthor[100];
     int year,copies;
@@ -100,81 +79,105 @@ int add_book(FILE *file,Book *head){
         id = n->id + 1;
     }
     printf("Enter the title:");
-    scanf("%s",booktitle);
+    scanf("%s",&booktitle);
     printf("Enter the author:");
-    scanf("%s",bookauthor);
+    scanf("%s",&bookauthor);
     printf("Enter the year:");
-    scanf("%u",&year);
+    scanf("%d",&year);
     printf("Enter the copies:");
     scanf("%d",&copies);
-    temp->id=id;
-    temp->title=booktitle;
-    temp->authors=bookauthor;
-    temp->year=year;
-    temp->copies=copies;
-    fprintf(file,"%i",temp->id);
-    fprintf(file,"\t");
-    fprintf(file,"%s",temp->title);
-    fprintf(file,"\t");
-    fprintf(file,"%s",temp->authors);
-    fprintf(file,"\t");
-    fprintf(file,"%i",temp->year);
-    fprintf(file,"\t");
-    fprintf(file,"%i",temp->copies);
-    fprintf(file,"\n");
-    temp=temp->next;
-    fclose(file);
+    Book *new = (Book *) malloc(sizeof (Book));
+    new->id=id;
+
+    new->title = (char *) malloc(100*sizeof (char));
+    new->title= strddd(booktitle);
+    new->title[strlen(new->title)] = '\0';
+    new->authors = (char *) malloc(100*sizeof (char));
+    new->authors= strddd(bookauthor);
+    new->authors[strlen(new->authors)] = '\0';
+    new->year=year;
+    new->copies=copies;
+    temp->next = new;
+    new->next = NULL;
     return 0;
 
+}
+int remove_book(Book*head){
+    display(head);
+    int a;
+    printf("Pleaser enter the id to remove the book:");
+    scanf("%i",&a);
+
+    return 0;
 }
 int store_books(FILE *file,Book *head){
-    Book *temp=head->next;
-    temp=(Book*)malloc(sizeof(Book));
-    while (temp->next==NULL){
+
+    Book *temp=head;
+    while (temp->next!=NULL){
+    temp=temp->next;
     fprintf(file,"%i",temp->id);
-    fprintf(file,"\t");
+    fprintf(file,";");
     fprintf(file,"%s",temp->title);
-    fprintf(file,"\t");
+    fprintf(file,";");
     fprintf(file,"%s",temp->authors);
-    fprintf(file,"\t");
+    fprintf(file,";");
     fprintf(file,"%i",temp->year);
-    fprintf(file,"\t");
+    fprintf(file,";");
     fprintf(file,"%i",temp->copies);
     fprintf(file,"\n");
-    temp=temp->next;}
+    }
     return 0;
 
 }
-int load_books(FILE *file){
-    Book *head = (Book*)malloc(sizeof(Book));
-    head->next=NULL;
+int load_books(FILE *file,Book*head){
+
+    char line[300];
     if(NULL == file)
     {
         printf("FILE NOT FOUND");
         exit(-1);
     }
+    Book *last = head;
 
-    Book *c = head;
-    while(1)
-    {
-        Book* temp = (Book*)malloc(sizeof(Book));
-        if(!temp)
-            exit(-1);
+    while(fgets(line,300,file)!=NULL){
+        Book *temp = (Book *)malloc(sizeof (Book));
 
+        temp->id= atoi(strtok(line,";"));
+        temp->title= strddd(strtok(NULL,";"));
+        temp->title[strlen(temp->title)] = '\0';
 
-        if(fscanf(file,"%i%s%s%i%i",&temp->id,&temp->title,&temp->authors,&temp->year,&temp->copies)!=5)
-        {
-            free(temp);
-            break;
-        }
-        c->next=temp;
-        c = temp;
-        c->next = NULL;
+        temp->authors= strddd(strtok(NULL,";"));
+        temp->authors[strlen(temp->authors)] = '\0';
+        temp->year= atoi(strtok(NULL,";"));
+        temp->copies= atoi(strtok(NULL,"\n"));
+        last->next = temp;
+        last = temp;
+        last->next = NULL;
     }
+
+
+
     return 0;
 
 
+
 }
+void display(Book *head){
+    Book *temp=head;
+    while (temp->next!=NULL){
+        temp=temp->next;
+        printf("%i",temp->id);
+        printf("\t");
+        printf("%s",temp->title);
+        printf("\t");
+        printf("%s",temp->authors);
+        printf("\t");
+        printf("%i",temp->year);
+        printf("\t");
+        printf("%i",temp->copies);
+        printf("\n");
+    }
+    }
 
 
 
