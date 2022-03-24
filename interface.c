@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#include "book_mangement.h"
 #include "interface.h"
 
 int Face(){
@@ -14,7 +14,6 @@ int Face(){
     printf("option:");
     scanf("%s",&a);
     b=strlen(a);
-
     while(b>=2||(a[0]!='1'&&a[0]!='2'&&a[0]!='3')){
         printf("\n");
         printf("Sorry the option is invalid,please try again.");

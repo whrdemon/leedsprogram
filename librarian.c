@@ -103,6 +103,7 @@ int add_book(FILE *file,Book *head){
 
 }
 int remove_book(Book*head){
+
     display(head);
     int a;
     printf("Pleaser enter the id to remove the book:");
