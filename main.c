@@ -8,7 +8,7 @@
 #include "user.h"
 int main()
 {
-    int a,b,c,d;
+    int a,b,c,d,p;
 
     Book *head = (Book*)malloc(sizeof(Book));
     head->next=NULL;
@@ -52,13 +52,32 @@ int main()
                                     c=Lib();
                                     break;
                                 }}
-                                case 2:{
-                                    FILE *fp=fopen("booklist.txt","r");
-                                    load_books(fp,head);
+                            case 2:{
+                                FILE *fp=fopen("booklist.txt","r");
+                                load_books(fp,head);
+                                p= remove_book(head);
+                                if(p==1){
+                                    fclose(fp);
+                                    c=Lib();
+                                    break;
+                                }
+                                else if(p==0){
+                                printf("Remove successfully!\n");
+                                fclose(fp);
+                                FILE *fm= fopen("booklist.txt","w");
+                                store_books(fm,head);
+                                fclose(fm);
+                                c=Lib();
+                                break;}
+                                else if(p==2){
+                                    fclose(fp);
+                                    c=Lib();
+                                    break;
 
-                                    remove_book(head);
-                                    return 0;
+                                }
+
                             }
+
                             case 4:{
                                 FILE *fp=fopen("booklist.txt","r");
                                 load_books(fp,head);

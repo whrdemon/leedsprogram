@@ -26,7 +26,7 @@ int Lib(){
 
     while(b>=2||(a[0]!='1'&&a[0]!='2'&&a[0]!='3'&&a[0]!='4'&&a[0]!='5')){
         printf("\n");
-        printf("Sorry the option is invalid,please try again.");
+        printf("Sorry the option is invalid,please try again.\n");
         printf("Enter your choice:\n");
         printf("1.Add a book\n");
         printf("2.Remove a book\n");
@@ -103,10 +103,38 @@ int add_book(FILE *file,Book *head){
 
 }
 int remove_book(Book*head){
+    if(head->next==NULL){
+        printf("There are no books in the library, please add them first");
+        return 1;
+    }
     display(head);
-    int a;
+    int a,b;
     printf("Pleaser enter the id to remove the book:");
     scanf("%i",&a);
+    b=0;
+    Book *temp=head;
+    while (temp->next!=NULL){
+        if (temp->next->id == a&&temp->next->next!=NULL){
+
+
+
+            temp->next= temp->next->next;;
+            b=1;
+        }
+        else if(temp->next->id == a&&temp->next->next==NULL){
+            temp->next=NULL;
+            b=1;
+        }
+        if(b==1){
+            break;
+        }
+        temp=temp->next;
+
+    }
+    if(b==0){
+        printf("Invalid input, please enter a correct ID\n");
+        return 2;
+    }
 
     return 0;
 }
@@ -164,6 +192,7 @@ int load_books(FILE *file,Book*head){
 }
 void display(Book *head){
     Book *temp=head;
+    printf("ID\tTitle\tAuthors\tYear\tCopies\n");
     while (temp->next!=NULL){
         temp=temp->next;
         printf("%i",temp->id);
@@ -179,5 +208,44 @@ void display(Book *head){
     }
     }
 
+int search(){
+    char a[10];
+    int b;
+    printf("\n");
+    printf("Enter your choice:\n");
+    printf("1.Search books by title\n");
+    printf("2.Search books by authors\n");
+    printf("3.Search books by year\n");
+    printf("4.Quit\n");
+    printf("option:");
+    scanf("%s",&a);
+    b=strlen(a);
+    while(b>=2||(a[0]!='1'&&a[0]!='2'&&a[0]!='3'&&a[0]!='4')){
+        printf("\n");
+        printf("Sorry the option is invalid,please try again.\n");
+        printf("Enter your choice:\n");
+        printf("1.Search books by title\n");
+        printf("2.Search books by authors\n");
+        printf("3.Search books by year\n");
+        printf("4.Quit\n");
+        printf("option:");
+        scanf("%s",&a);
+        b=strlen(a);}
+    if(a[0]=='1'){
+        return 1;
+    }
+    else if(a[0]=='2'){
+        return 2;
 
+    }
+    else if(a[0]=='3'){
+        return 3;
+
+    }
+    else if(a[0]=='4'){
+        return 4;
+
+    }
+
+}
 
