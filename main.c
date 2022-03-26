@@ -31,6 +31,7 @@ int main()
                     if(d==1){
                         printf("Borrow book");
                     }
+
                 }
                 if (b == 2) {
                     printf("Welcome,librarian!\n");
