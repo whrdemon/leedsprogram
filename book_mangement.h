@@ -59,7 +59,6 @@ BookList find_book_by_author (const char *author,Book *head);
 //provided title can be found. The length of the list is also recorded in the returned structure, with 0 in case
 //list is the NULL pointer.
 BookList find_book_by_year (unsigned int year,Book *head);
-
 int search();
 int check(char *a);
 int displayfindbook(Book *head,char f[100]);
