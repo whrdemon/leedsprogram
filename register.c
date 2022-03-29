@@ -8,12 +8,8 @@ pNode createList()
 {
     pNode Head = (pNode)malloc(sizeof(LNode));
     Head->next=NULL;
-    FILE *fp = fopen("user.txt","r+");
-    if(NULL == fp)
-    {
-        printf("FILE NOT FOUND");
-        exit(-1);
-    }
+    FILE *fp = fopen("user.txt","r");
+
 
     pNode c = Head;
     while(1)
@@ -32,16 +28,18 @@ pNode createList()
         c = temp;
         c->next = NULL;
     }
+    fclose(fp);
     return Head;
 }
 
-int login(pNode head)
+int login(pNode head,char *uu)
 {
+
     if(NULL==head->next)
     {
         printf("user list empty,please register first\n");
         getchar();
-        return 0;
+        return 3;
     }
     char name[100];
     char pass[100];
@@ -57,6 +55,10 @@ int login(pNode head)
             if(0==strcmp("librarian",name)){
                 return 2;
             }
+            printf("(Login in as %s)",name);
+            strcat(name,".txt");
+            strcpy(uu,name);
+
             return 1;
         }
         if(0==strcmp(temp->name,name) && 0!=strcmp(temp->pass,pass))
@@ -75,11 +77,11 @@ int login(pNode head)
 void registerUser(pNode head)
 {
     char name[100];
-    pNode temp = head->next;
+    pNode temp;
+    temp=(pNode)malloc(sizeof(LNode));
     printf("enter your name:");
     scanf("%s",name);
     pNode abc = head->next;
-
     while(abc)
     {
         if(0==strcmp(abc->name,name))
@@ -101,7 +103,6 @@ void registerUser(pNode head)
     fprintf(fw,"\t");
     fprintf(fw,temp->pass);
     fprintf(fw,"\n");
-    temp  = temp->next;
     fclose(fw);
     printf("Registered successfully\n");
 }

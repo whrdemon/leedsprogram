@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include"register.h"
 #include "interface.h"
 #include "librarian.h"
@@ -8,6 +9,7 @@
 int main()
 {
     int a,b,c,d,p,g,s,bo,us,re;
+    char *username;
 
     Book *head = (Book*)malloc(sizeof(Book));
     head->next=NULL;
@@ -18,6 +20,10 @@ int main()
     fprintf(fo,"\n");
     fclose(fo);
     while (1){
+
+
+
+
         a=Face();
         switch (a) {
 
@@ -26,13 +32,14 @@ int main()
                 registerUser(createList());
                 break;
             case 2:
-                b = login(createList());
+                b = login(createList(),username);
                 if(b==3){
                     break;
                 }
                 while (b == 0) {
-                    b = login(createList());
+                    b = login(createList(),username);
                 }
+
                 if (b == 1) {
                     d=Userface();
                     while(d){
@@ -42,7 +49,7 @@ int main()
                             case 1: {
                                 FILE *fp = fopen("booklist.txt", "r");
                                 load_books(fp, head);
-                                bo = Borrowbook(head, borrow());
+                                bo = Borrowbook(head, borrow(username),username);
                                 if (bo == 0) {
                                     printf("Borrow successfully!\n");
                                     fclose(fp);
@@ -61,10 +68,10 @@ int main()
                                 }
                             }
                             case 2:{
-                                displayborrowbook(borrow());
+                                displayborrowbook(borrow(username));
                                 FILE *fp = fopen("booklist.txt", "r");
                                 load_books(fp, head);
-                                re=returnbook(head,borrow());
+                                re=returnbook(head,borrow(username),username);
                                 if (re == 0) {
                                     printf("Return successfully!\n");
                                     fclose(fp);

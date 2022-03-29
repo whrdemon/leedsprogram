@@ -3,6 +3,7 @@
 #include <string.h>
 #include "user.h"
 #include "book_mangement.h"
+#include "register.h"
 int Userface(){
     char a[10];
     int b;
@@ -51,8 +52,10 @@ int Userface(){
 
 
 }
-int Borrowbook(Book *head,Book *borrow){
-    FILE *fw= fopen("borrow.txt","a");
+int Borrowbook(Book *head,Book *borrow,char *username){
+
+
+    FILE *fw= fopen(username,"a");
     if(head->next==NULL){
         printf("Sorry,there are no books in the library.");
         return 1;
@@ -152,10 +155,11 @@ int displayborrowbook(Book *borrow){
     }
 
 }
-Book *borrow() {
+Book *borrow(char *username) {
+
     Book *head = (Book *) malloc(sizeof(Book));
     head->next = NULL;
-    FILE *fp = fopen("borrow.txt", "r");
+    FILE *fp = fopen(username, "r");
     Book *last = head;
     char line[300];
     while (fgets(line, 300, fp) != NULL) {
@@ -177,7 +181,7 @@ Book *borrow() {
     fclose(fp);
     return head;
 }
-int returnbook(Book*head,Book*borrow){
+int returnbook(Book*head,Book*borrow,char *username){
     char *i;
     int a,b;
     b=0;
@@ -193,6 +197,7 @@ int returnbook(Book*head,Book*borrow){
         return 1;
     }
     a= atoi(i);
+
     Book *x=head;
     Book *temp=borrow;
     while(x->next!=NULL){
@@ -224,7 +229,7 @@ int returnbook(Book*head,Book*borrow){
         return 1;
     }
     Book *t=borrow;
-    FILE *fg= fopen("borrow.txt","w");
+    FILE *fg= fopen(username,"w");
     while (t->next!=NULL){
         t=t->next;
         fprintf(fg,"%i",t->id);
