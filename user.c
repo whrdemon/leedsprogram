@@ -223,7 +223,6 @@ int returnbook(Book*head,Book*borrow,char *username){
         temp=temp->next;
 
     }
-
     if(b==0){
         printf("Invalid input, please enter a correct ID");
         return 1;

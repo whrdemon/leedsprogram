@@ -8,7 +8,6 @@
   However, you may not change the function prototypes. 
   You are also free to add additional head files and data structures as needed. 
 */
-
 typedef struct _Book {
 	    unsigned int id; //Book ID
 		char *title; //book title

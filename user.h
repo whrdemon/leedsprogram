@@ -13,4 +13,3 @@ int displayborrowbook(Book *borrow);
 Book *borrow(char *username);
 int returnbook(Book*head,Book *borrow,char *username);
 #endif //CWK1_USER_H
-

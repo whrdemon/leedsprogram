@@ -17,7 +17,6 @@ int Face(){
     printf("\t");
     printf("option:");
     scanf("%s",&a);
-
     b=strlen(a);
     while(b>=2||(a[0]!='1'&&a[0]!='2'&&a[0]!='3')){
         printf("\n");

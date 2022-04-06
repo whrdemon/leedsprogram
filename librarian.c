@@ -115,7 +115,6 @@ int add_book(FILE *file,Book *head){
         printf("Please enter the unsigned integer!");
         return 1;
     }
-
     year= atoi(y);
     printf("Enter the copies:");
     gets(c);

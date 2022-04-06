@@ -93,7 +93,6 @@ void registerUser(pNode head)
         }
         abc = abc->next;
     }
-
     strcpy(temp->name,name);
     printf("enter your password:");
     scanf("%s",temp->pass);
