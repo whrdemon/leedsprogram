@@ -10,7 +10,7 @@ int main()
 {
     int a,b,c,d,p,g,s,bo,us,re;
     char *username;
-
+    username=(char *)malloc(sizeof(char));
     Book *head = (Book*)malloc(sizeof(Book));
     head->next=NULL;
     FILE *fo= fopen("user.txt","a");
@@ -19,11 +19,10 @@ int main()
     fprintf(fo,"librarian");
     fprintf(fo,"\n");
     fclose(fo);
+    FILE *fppp= fopen("booklist.txt", "a");
+    fclose(fppp);
+    printf("Welcome to use the library");
     while (1){
-
-
-
-
         a=Face();
         switch (a) {
 
@@ -41,12 +40,17 @@ int main()
                 }
 
                 if (b == 1) {
+
+
                     d=Userface();
+
                     while(d){
                         switch (d) {
 
 
                             case 1: {
+				printf("1");
+
                                 FILE *fp = fopen("booklist.txt", "r");
                                 load_books(fp, head);
                                 bo = Borrowbook(head, borrow(username),username);
@@ -92,7 +96,7 @@ int main()
 
                             }
                             case 3:{
-                                us=search();
+                                us=searcher();
                                 unsigned int year;
                                 char *title,*t,*y,*author;
                                 title=(char *)malloc(sizeof(char));
@@ -201,7 +205,7 @@ int main()
 
                             }
                             case 3:{
-                                s=search();
+                                s=searcher();
                                 unsigned int year;
                                 char *title,*t,*y,*author;
                                 title=(char *)malloc(sizeof(char));

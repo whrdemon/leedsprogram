@@ -34,7 +34,6 @@ pNode createList()
 
 int login(pNode head,char *uu)
 {
-
     if(NULL==head->next)
     {
         printf("user list empty,please register first\n");
@@ -52,11 +51,13 @@ int login(pNode head,char *uu)
     {
         if(0==strcmp(temp->name,name) && 0==strcmp(temp->pass,pass))
         {
+
             if(0==strcmp("librarian",name)){
+
                 return 2;
             }
             printf("(Login in as %s)",name);
-            strcat(name,".txt");
+            strcat(name,"1.txt");
             strcpy(uu,name);
 
             return 1;
@@ -99,9 +100,9 @@ void registerUser(pNode head)
     scanf("%s",temp->pass);
     temp->next=NULL;
     FILE *fw = fopen("user.txt","a");
-    fprintf(fw,temp->name);
+    fprintf(fw,"%s",temp->name);
     fprintf(fw,"\t");
-    fprintf(fw,temp->pass);
+    fprintf(fw,"%s",temp->pass);
     fprintf(fw,"\n");
     fclose(fw);
     printf("Registered successfully\n");

@@ -16,6 +16,7 @@ typedef struct _Book {
 		char *authors; //comma separated list of authors
 		unsigned int year; // year of publication
 		unsigned int copies; //number of copies the library has
+        unsigned int now;
 		struct _Book *next; //pointer to the next book element
 }Book;
 
@@ -60,7 +61,7 @@ BookList find_book_by_author (const char *author,Book *head);
 //list is the NULL pointer.
 BookList find_book_by_year (unsigned int year,Book *head);
 
-int search();
+int searcher();
 int check(char *a);
-int displayfindbook(Book *head,char f[100]);
+int displayfindbook(Book *head,Book *search);
 #endif

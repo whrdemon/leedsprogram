@@ -3,7 +3,6 @@
 #include <string.h>
 #include "user.h"
 #include "book_mangement.h"
-#include "register.h"
 int Userface(){
     char a[10];
     int b;
@@ -156,6 +155,8 @@ int displayborrowbook(Book *borrow){
 
 }
 Book *borrow(char *username) {
+    FILE *creat= fopen(username,"a");
+    fclose(creat);
 
     Book *head = (Book *) malloc(sizeof(Book));
     head->next = NULL;

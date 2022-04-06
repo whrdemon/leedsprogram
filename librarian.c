@@ -34,7 +34,7 @@ int Lib(){
     printf("4.Display all books\n");
     printf("5.Quit\n");
     printf("option:");
-    scanf("%s",&a);
+    scanf("%s",a);
     b=strlen(a);
 
     while(b>=2||(a[0]!='1'&&a[0]!='2'&&a[0]!='3'&&a[0]!='4'&&a[0]!='5')){
@@ -47,7 +47,7 @@ int Lib(){
         printf("4.Display all books\n");
         printf("5.Quit\n");
         printf("option:");
-        scanf("%s",&a);
+        scanf("%s",a);
         b=strlen(a);}
     if(a[0]=='1'){
         return 1;
@@ -77,7 +77,6 @@ int add_book(FILE *file,Book *head){
     while(temp->next!=NULL){
         temp=temp->next;
     }
-
     char *booktitle,*bookauthor,*y,*c,*s;
     int year,copies;
     unsigned  int id;
@@ -137,6 +136,7 @@ int add_book(FILE *file,Book *head){
     new->authors[strlen(new->authors)] = '\0';
     new->year=year;
     new->copies=copies;
+    new->now=copies;
     temp->next = new;
     new->next = NULL;
     return 0;
@@ -144,11 +144,11 @@ int add_book(FILE *file,Book *head){
 }
 int remove_book(Book*head){
     if(head->next==NULL){
-        printf("There are no books in the library, please add them first");
+        printf("There are no books in the library, please add them first.");
         return 1;
     }
     display(head);
-    int a,b;
+    int a,b,c;
     char *x;
     x=(char *)malloc(sizeof(char));
     printf("Pleaser enter the id to remove the book:");
@@ -159,7 +159,21 @@ int remove_book(Book*head){
     }
     a= atoi(x);
     b=0;
+    c=0;
     Book *temp=head;
+    Book *l=head->next;
+    while (l){
+        if (l->id== a&&l->copies!=l->now){
+            c=1;
+        }
+
+        if(c==1) {
+            printf("Sorry,this kind of book is being borrowed.Can't remove.");
+            return 2;
+        }
+        l=l->next;
+
+    }
     while (temp->next!=NULL){
         if (temp->next->id == a&&temp->next->next!=NULL){
             temp->next= temp->next->next;;
@@ -169,6 +183,7 @@ int remove_book(Book*head){
             temp->next=NULL;
             b=1;
         }
+
         if(b==1){
             break;
         }
@@ -196,6 +211,8 @@ int store_books(FILE *file,Book *head){
     fprintf(file,"%i",temp->year);
     fprintf(file,";");
     fprintf(file,"%i",temp->copies);
+    fprintf(file,";");
+    fprintf(file,"%i",temp->now);
     fprintf(file,"\n");
     }
     return 0;
@@ -204,11 +221,6 @@ int store_books(FILE *file,Book *head){
 int load_books(FILE *file,Book*head){
 
     char line[300];
-    if(NULL == file)
-    {
-        printf("FILE NOT FOUND");
-        exit(-1);
-    }
     Book *last = head;
 
     while(fgets(line,300,file)!=NULL){
@@ -221,7 +233,8 @@ int load_books(FILE *file,Book*head){
         temp->authors= strddd(strtok(NULL,";"));
         temp->authors[strlen(temp->authors)] = '\0';
         temp->year= atoi(strtok(NULL,";"));
-        temp->copies= atoi(strtok(NULL,"\n"));
+        temp->copies= atoi(strtok(NULL,";"));
+        temp->now= atoi(strtok(NULL,"\n"));
         last->next = temp;
         last = temp;
         last->next = NULL;
@@ -236,23 +249,35 @@ int load_books(FILE *file,Book*head){
 }
 void display(Book *head){
     Book *temp=head;
-    printf("ID\tTitle\tAuthors\tYear\tCopies\n");
+	if(head->next==NULL){
+		printf("There are no books in the library.");
+		return;
+				    }
+
     while (temp->next!=NULL){
         temp=temp->next;
+        printf("ID:");
         printf("%i",temp->id);
         printf("\t");
+        printf("Title:");
         printf("%s",temp->title);
         printf("\t");
+        printf("Authors:");
         printf("%s",temp->authors);
         printf("\t");
+        printf("Year:");
         printf("%i",temp->year);
         printf("\t");
+        printf("Original Copies:");
         printf("%i",temp->copies);
+        printf("\t");
+        printf("Available Copies:");
+        printf("%i",temp->now);
         printf("\n");
     }
     }
 
-int search(){
+int searcher(){
     char a[10];
     int b;
     printf("\n");
@@ -293,99 +318,120 @@ int search(){
 
 }
 BookList find_book_by_title (const char *title,Book *head){
+    Book *search = (Book*)malloc(sizeof(Book));
+    search->next=NULL;
     Book *temp=head;
-    char a[100];
-    int i,j;
+    Book *last=search;
     while(temp->next!=NULL){
+        Book *tt= (Book*)malloc(sizeof(Book));
         temp=temp->next;
         if(strcmp(temp->title,title)==0){
-            for (i = 0; i < 100; ++i) {
-                if(a[i]==0){
-                    j=i;
-                    break;}
 
-            }
-            a[j]=temp->id;
+                tt->id=temp->id;
+                last->next=tt;
+                tt->next=NULL;
+                last = tt;
         }
     }
-    if(a[0]==0){
+
+
+    if(search->next==NULL){
+
         printf("Can't find the book.");
     }
-    if(a[0]!=0){
-        displayfindbook(head,a);
+    if(search->next!=NULL){
+        displayfindbook(head,search);
+
     }
 
 
 
 }
 BookList find_book_by_author (const char *author,Book *head){
+    Book *search = (Book*)malloc(sizeof(Book));
+    search->next=NULL;
     Book *temp=head;
-    char a[100];
-    int i,j;
+    Book *last=search;
     while(temp->next!=NULL){
+        Book *tt= (Book*)malloc(sizeof(Book));
         temp=temp->next;
         if(strcmp(temp->authors,author)==0){
-            for (i = 0; i < 100; ++i) {
-                if(a[i]==0){
-                    j=i;
-                    break;}
 
-            }
-            a[j]=temp->id;
+            tt->id=temp->id;
+            last->next=tt;
+            tt->next=NULL;
+            last = tt;
         }
     }
-    if(a[0]==0){
+
+
+    if(search->next==NULL){
+
         printf("Can't find the book.");
     }
-    if(a[0]!=0){
-        displayfindbook(head,a);
-    }
+    if(search->next!=NULL){
+        displayfindbook(head,search);
 
+    }
 
 
 }
 BookList find_book_by_year (unsigned int year,Book *head){
+    Book *search = (Book*)malloc(sizeof(Book));
+    search->next=NULL;
     Book *temp=head;
-    char a[100];
-    int i,j;
+    Book *last=search;
     while(temp->next!=NULL){
+        Book *tt= (Book*)malloc(sizeof(Book));
         temp=temp->next;
         if(temp->year==year){
-            for (i = 0; i < 100; ++i) {
-                if(a[i]==0){
-                    j=i;
-                    break;}
 
-            }
-            a[j]=temp->id;
+            tt->id=temp->id;
+            last->next=tt;
+            tt->next=NULL;
+            last = tt;
         }
     }
-    if(a[0]==0){
+
+
+    if(search->next==NULL){
+
         printf("Can't find the book.");
     }
-    if(a[0]!=0){
-        displayfindbook(head,a);
+    if(search->next!=NULL){
+        displayfindbook(head,search);
+
     }
 }
-int displayfindbook(Book *head,char f[100]){
-    printf("ID\tTitle\tAuthors\tYear\tCopies\n");
+int displayfindbook(Book *head,Book *search){
+
+
     Book *temp=head;
-    int i;
-    i=0;
+    Book *aaa=search->next;
     while (temp->next!=0){
         temp=temp->next;
-        if(f[i]==temp->id){
+        if(aaa->id==temp->id){
+            printf("ID:");
             printf("%i",temp->id);
-            printf("\t");
+            printf("\0");
+            printf("Title:");
             printf("%s",temp->title);
-            printf("\t");
+            printf("\0");
+            printf("Authors:");
             printf("%s",temp->authors);
-            printf("\t");
+            printf("\0");
+            printf("Year:");
             printf("%i",temp->year);
-            printf("\t");
+            printf("\0");
+            printf("Original Copies:");
             printf("%i",temp->copies);
+            printf("\0");
+            printf("Available Copies:");
+            printf("%i",temp->now);
             printf("\n");
-            i++;
+            if(aaa->next)
+                aaa=aaa->next;
+            else break;
         }
 
     }
