@@ -49,7 +49,6 @@ int main()
 
 
                             case 1: {
-				printf("1");
 
                                 FILE *fp = fopen("booklist.txt", "r");
                                 load_books(fp, head);

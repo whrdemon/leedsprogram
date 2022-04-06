@@ -132,7 +132,6 @@ int Borrowbook(Book *head,Book *borrow,char *username){
     }
     return 0;
 
-
 }
 int displayborrowbook(Book *borrow){
     Book *temp=borrow;

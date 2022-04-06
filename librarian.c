@@ -161,6 +161,7 @@ int remove_book(Book*head){
     b=0;
     c=0;
     Book *temp=head;
+
     Book *l=head->next;
     while (l){
         if (l->id== a&&l->copies!=l->now){
