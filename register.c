@@ -3,7 +3,7 @@
 #include <string.h>
 #include "register.h"
 
-pNode createList()
+pNode createList()//creat a list to store the user information
 {
     pNode Head = (pNode)malloc(sizeof(LNode));
     Head->next=NULL;
@@ -31,7 +31,7 @@ pNode createList()
     return Head;
 }
 
-int login(pNode head,char *uu)
+int login(pNode head,char *uu)// login function
 {
     if(NULL==head->next)
     {
@@ -74,7 +74,7 @@ int login(pNode head,char *uu)
 }
 
 
-void registerUser(pNode head)
+void registerUser(pNode head)// register function
 {
     char name[100];
     pNode temp;

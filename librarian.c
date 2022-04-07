@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include "librarian.h"
 #include "book_mangement.h"
-int check(char *a){
+int check(char *a)//here is a check function to check whether the parameter is an integer
+{
     int b,c;
     c=0;
     for(b=0;b< strlen(a);b++){
@@ -16,14 +17,16 @@ int check(char *a){
     return 1;
 
 };
-char *strddd(const char *s){
+char *strddd(const char *s)//here is a function to come true the function of strdup
+{
     size_t size = strlen(s) + 1;
     char *p = (char *)malloc(size*sizeof(char));
     if (p) {
         memcpy(p, s, size);
     }
     return p;}
-int Lib(){
+int Lib()//Operating system for librarians
+{
     char a[10];
     int b;
     printf("\n");
@@ -72,7 +75,8 @@ int Lib(){
 }
 
 
-int add_book(FILE *file,Book *head){
+int add_book(FILE *file,Book *head)//add book
+{
     Book *temp=head;
     while(temp->next!=NULL){
         temp=temp->next;
@@ -141,7 +145,8 @@ int add_book(FILE *file,Book *head){
     return 0;
 
 }
-int remove_book(Book*head){
+int remove_book(Book*head)//remove the book
+{
     if(head->next==NULL){
         printf("There are no books in the library, please add them first.");
         return 1;
@@ -197,7 +202,8 @@ int remove_book(Book*head){
 
     return 0;
 }
-int store_books(FILE *file,Book *head){
+int store_books(FILE *file,Book *head)//Writes data from the linked list to a file
+{
 
     Book *temp=head;
     while (temp->next!=NULL){
@@ -218,7 +224,8 @@ int store_books(FILE *file,Book *head){
     return 0;
 
 }
-int load_books(FILE *file,Book*head){
+int load_books(FILE *file,Book*head)//Read file data into the linked list
+{
 
     char line[300];
     Book *last = head;
@@ -247,7 +254,8 @@ int load_books(FILE *file,Book*head){
 
 
 }
-void display(Book *head){
+void display(Book *head)//display all books
+{
     Book *temp=head;
 	if(head->next==NULL){
 		printf("There are no books in the library.");
@@ -277,7 +285,8 @@ void display(Book *head){
     }
     }
 
-int searcher(){
+int searcher()//Operating face when searching for books
+{
     char a[10];
     int b;
     printf("\n");
@@ -317,7 +326,8 @@ int searcher(){
     }
 
 }
-BookList find_book_by_title (const char *title,Book *head){
+BookList find_book_by_title (const char *title,Book *head)//find by title
+{
     Book *search = (Book*)malloc(sizeof(Book));
     search->next=NULL;
     Book *temp=head;
@@ -347,7 +357,8 @@ BookList find_book_by_title (const char *title,Book *head){
 
 
 }
-BookList find_book_by_author (const char *author,Book *head){
+BookList find_book_by_author (const char *author,Book *head)//find by authors
+{
     Book *search = (Book*)malloc(sizeof(Book));
     search->next=NULL;
     Book *temp=head;
@@ -376,7 +387,8 @@ BookList find_book_by_author (const char *author,Book *head){
 
 
 }
-BookList find_book_by_year (unsigned int year,Book *head){
+BookList find_book_by_year (unsigned int year,Book *head)//find by year
+{
     Book *search = (Book*)malloc(sizeof(Book));
     search->next=NULL;
     Book *temp=head;
@@ -403,7 +415,8 @@ BookList find_book_by_year (unsigned int year,Book *head){
 
     }
 }
-int displayfindbook(Book *head,Book *search){
+int displayfindbook(Book *head,Book *search)//display the books found
+{
 
 
     Book *temp=head;

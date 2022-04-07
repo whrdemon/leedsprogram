@@ -3,7 +3,8 @@
 #include <string.h>
 #include "user.h"
 #include "book_mangement.h"
-int Userface(){
+int Userface()//Operating face of users
+{
     char a[10];
     int b;
     printf("\n");
@@ -51,7 +52,8 @@ int Userface(){
 
 
 }
-int Borrowbook(Book *head,Book *borrow,char *username){
+int Borrowbook(Book *head,Book *borrow,char *username)//borrow books
+{
 
 
     FILE *fw= fopen(username,"a");
@@ -133,7 +135,8 @@ int Borrowbook(Book *head,Book *borrow,char *username){
     return 0;
 
 }
-int displayborrowbook(Book *borrow){
+int displayborrowbook(Book *borrow)//display books borrowed
+{
     Book *temp=borrow;
 
     while (temp->next!=NULL){
@@ -153,7 +156,8 @@ int displayborrowbook(Book *borrow){
     }
 
 }
-Book *borrow(char *username) {
+Book *borrow(char *username) // creat a list to store the information of borrowing books
+{
     FILE *creat= fopen(username,"a");
     fclose(creat);
 
@@ -181,7 +185,8 @@ Book *borrow(char *username) {
     fclose(fp);
     return head;
 }
-int returnbook(Book*head,Book*borrow,char *username){
+int returnbook(Book*head,Book*borrow,char *username)//return books
+{
     char *i;
     int a,b;
     b=0;

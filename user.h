@@ -1,6 +1,3 @@
-//
-// Created by Demon。 on 2022/3/24.
-//
 
 #ifndef CWK1_USER_H
 #define CWK1_USER_H

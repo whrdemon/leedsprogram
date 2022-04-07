@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "interface.h"
-int Face(){
+int Face()//This is the first interface to enter the library
+{
     char a[10];
     int b;
     printf("\n");
@@ -40,6 +41,5 @@ int Face(){
 
     }
 }
-// Created by Demon。 on 2022/3/20.
-//
+
 
